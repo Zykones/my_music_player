@@ -29,7 +29,7 @@ Choosing "Artist" gives you a list of all the artist you uploaded (shown below).
 
 ![Menu after clicking "Artists"](artist_menu.png)
 
-When you chose a song to start with you can use the Buttons (play/pause, stop, previous, next) which should be self-explanatory. "Previous" gives you the song before the currently playing song if that is possible, else it will jus keep playing the song you are at. Similarly "Next" will start playing the next song in the list, if that is possible. "Stop" will stop the msuic to play. It restarts the song when you press play afterwards. Otherwise the "Play/Pause" button will pause or unpause the song. It is not possible to select and start a new song with the play button. If you want to select a new song from the list, do so by double clicking. Beneath a picture with playing song.
+When you chose a song to start with you can use the Buttons (play/pause, stop, previous, next) which should be self-explanatory. "Previous" gives you the song before the currently playing song if that is possible, else it will jus keep playing the song you are at. Similarly "Next" will start playing the next song in the list, if that is possible. "Stop" will stop the msuic to play. It restarts the song when you press play afterwards. Otherwise the "Play/Pause" button will pause or unpause the song. It is not possible to select and start a new song with the play button. If you want to select a new song from the list, do so by double clicking. Beneath a picture with a playing song.
 
 ![Display when song is playing](song_playing.png)
 
