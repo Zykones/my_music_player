@@ -19,21 +19,21 @@ Start the musicplayer by running the main.py file. You will now see the followin
 
 ![Image of started musicplayer](just_started_musicplayer.png)
 
-Now you can upload your desired songs by clicking on the "Menu" button on the top left and select "Load Songs". You can only upload song files not entire folders with music, so keep that in mind. Also every song has to inherit the information about the artists and albums name, as well as the release year of the album. 
+Now you can upload your desired songs by clicking on the "Menu" button on the top left and select "Load Songs" (see picture below). You can only upload song files not entire folders with music, so keep that in mind. Also every song has to inherit the information about the artists and albums name, as well as the release year of the album. 
 
 ![Menu for loading songs](load_songs.png)
 
 After uploading songs you can use the Menu on the right side with the main options "All Songs" and "Artists". You navigate through this menu by double clicking the desired item. You can use the scrollbar on the right and on the bottom to get a good look at all the songs, artists and albums. Clicking on "All Songs" gives you a list of all the songs you uploaded. With double clicking on one of the songs, the song will start to play. 
 
-Choosing "Artist" gives you a list of all the artist you uploaded. When choosing an artist you will see all the albums from that artist (of cause only the one you uploaded songs from). Then you can choose the desired album and will see all uploaded songs from that album. Again, now you can start playing a song by double clicking it. To navigate back to the list of albums, artist or the main menu, you can always click the "Back" entry on top of the list.
+Choosing "Artist" gives you a list of all the artist you uploaded (shown below). When choosing an artist you will see all the albums from that artist (of cause only the one you uploaded songs from). Then you can choose the desired album and will see all uploaded songs from that album. Again, now you can start playing a song by double clicking it. To navigate back to the list of albums, artist or the main menu, you can always click the "Back" entry on top of the list.
 
 ![Menu after clicking "Artists"](artist_menu.png)
 
-When you chose a song to start with you can use the Buttons (play/pause, stop, previous, next) which should be self-explanatory. "Previous" gives you the song before the currently playing song if that is possible, else it will jus keep playing the song you are at. Similarly "Next" will start playing the next song in the list, if that is possible. "Stop" will stop the msuic to play. It restarts the song when you press play afterwards. Otherwise the "Play/Pause" button will pause or unpause the song. It is not possible to select and start a new song with the play button. If you want to select a new song from the list, do so by double clicking.
+When you chose a song to start with you can use the Buttons (play/pause, stop, previous, next) which should be self-explanatory. "Previous" gives you the song before the currently playing song if that is possible, else it will jus keep playing the song you are at. Similarly "Next" will start playing the next song in the list, if that is possible. "Stop" will stop the msuic to play. It restarts the song when you press play afterwards. Otherwise the "Play/Pause" button will pause or unpause the song. It is not possible to select and start a new song with the play button. If you want to select a new song from the list, do so by double clicking. Beneath a picture with playing song.
 
 ![Display when song is playing](song_playing.png)
 
-To wrap up the experience you can also display the lyrics to your favourite song. To do so go to the menu on the top left and select "Show Lyrics". Remember that the player can only show lyrics when you first started to play the song you want the lyrics from. It will take a few seconds till a new window with the lyrics will pop up.
+To wrap up the experience you can also display the lyrics to your favourite song. To do so go to the menu on the top left and select "Show Lyrics". Remember that the player can only show lyrics when you first started to play the song you want the lyrics from. It will take a few seconds till a new window with the lyrics will pop up, similar to the following picture.
 
 ![Lyrics window](show_lyrics.png)
 
