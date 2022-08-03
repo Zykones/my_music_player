@@ -1,0 +1,14 @@
+beautifulsoup4==4.11.1
+certifi @ file:///C:/Windows/TEMP/abs_e9b7158a-aa56-4a5b-87b6-c00d295b01fanefpc8_o/croots/recipe/certifi_1655968940823/work/certifi
+charset-normalizer==2.1.0
+idna==3.3
+lyricsgenius @ git+https://github.com/johnwmillr/LyricsGenius.git@fa9528551043cd60376b900a0adacf239a93fae5
+mutagen==1.45.1
+pydub==0.25.1
+pygame==2.1.2
+python-mpv==1.0.1
+requests==2.28.1
+soupsieve==2.3.2.post1
+tk==0.1.0
+urllib3==1.26.11
+wincertstore==0.2
