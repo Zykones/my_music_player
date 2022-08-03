@@ -21,7 +21,9 @@ Start the musicplayer by running the main.py file. You will now see the followin
 
 Now you can upload your desired songs by clicking on the "Menu" button on the top left and select "Load Songs". You can only upload song files not entire folders with music, so keep that in mind. Also every song has to inherit the information about the artists and albums name, as well as the release year of the album. 
 
-After uploading songs you can use the Menu on the right side with the main options "All Songs" and "Artists". You navigate through this menu by double clicking the desired item. Clicking on "All Songs" gives you a list of all the songs you uploaded. With double clicking on one of the songs the song will start to play.
+![Menu for loading songs](load_songs.png)
+
+After uploading songs you can use the Menu on the right side with the main options "All Songs" and "Artists". You navigate through this menu by double clicking the desired item. You can use the scrollbar on the right and on the bottom to get a good look at all the songs, artists and albums. Clicking on "All Songs" gives you a list of all the songs you uploaded. With double clicking on one of the songs, the song will start to play. 
 
 Choosing "Artist" gives you a list of all the artist you uploaded. When choosing an artist you will see all the albums from that artist (of cause only the one you uploaded songs from). Then you can choose the desired album and will see all uploaded songs from that album. Again, now you can start playing a song by double clicking it. To navigate back to the list of albums, artist or the main menu, you can always click the "Back" entry on top of the list.
 
@@ -35,3 +37,4 @@ To wrap up the experience you can also display the lyrics to your favourite song
 
 ![Lyrics window](show_lyrics.png)
 
+Now have fun listening to all your favourite music! :D
