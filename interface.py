@@ -8,10 +8,11 @@ from time import gmtime, strftime
 
 
 """
-Set up the interface of the music players using tkinter and pygame.
+Set up the interface of the music player
 """
 
 def build_interface():
+    """Build the main window for the music player, all menues and buttons."""
     #Setting up the main frame
     global window
     window = Tk()
@@ -21,8 +22,10 @@ def build_interface():
     window.resizable(0, 0)
 
 
-    #Setting up the buttons
     def button_frame(window):
+        """Build a frame inside the main window for the buttons,
+           the currently playing frame and the bar for the current songtime.
+        """
         #initialize the mixer module
         mixer.init()
 
@@ -47,7 +50,7 @@ def build_interface():
         play_button.focus()
         play_button.bind('<Button-1>', intermediate_play)
 
-        #create frame for current playing song information
+        #create frame for currently playing song information
         global song_frame
         song_frame = LabelFrame(frame_left, text='Currently Playing', width= 180, height= 180)
         song_frame.grid(row= 0, columnspan=3, pady=20)
@@ -56,6 +59,7 @@ def build_interface():
         Label(song_frame, text='Artist:').place(x=3, y=70)
         Label(song_frame, text='Album:').place(x=3, y=110)
 
+        #create the bar to show the current song time
         global song_time_bar
         song_time_bar = Label(frame_left, text="Songtime:", width=40)
         song_time_bar.place(x=-55, y=200) 
@@ -64,30 +68,30 @@ def build_interface():
         frame_left.place(x=75, y=20)
 
 
-    #Set up menubar for loading and selecting songs
     def menu():
+        """Set up the menubar for loading songs and showing lyrics."""
         #create menubar
         menubar = Menu(window)
         window.config(menu=menubar)
 
         #create menu items
         filemenu = Menu(menubar, tearoff=0)
-        
+
+        menubar.add_cascade(label="Menu", menu=filemenu)
         filemenu.add_command(label="Load Songs", command=load)
         filemenu.add_separator()
         filemenu.add_command(label="Show Lyrics", command=show_lyrics)
-        menubar.add_cascade(label="Menu", menu=filemenu)
-        
 
-    #build listbox for songs and structure
+
     def listbox_frame(window):
+        """Build a frame inside the main window for the listbox, which
+           contains the structure of the uploaded songs.
+        """
         frame_right = Frame(window)
-        #frame_right.grid(column=1, row=0, padx=15, pady=15)
         frame_right.pack(side=RIGHT)
 
         #elements in listbox
         items = ("All Songs", "Artists")
-        #listbox.insert(END, "All Songs") ?
         menu_items = StringVar(value=items)
         
         #create scrollbar for listbox
@@ -106,10 +110,10 @@ def build_interface():
         scrollbar_vertical.config(command = listbox.yview)
         scrollbar_horizontal.config(command = listbox.xview)
 
+        #connect the listbox items with a mouse double click
         listbox.bind("<Double-1>", get_action)
         listbox.pack()
 
-     
     #run functions to create window
     menu()
     button_frame(window)
@@ -122,14 +126,14 @@ def build_interface():
 
 
 """
-Setting up the functions and commands for the interface.
+Setting up the functions and commands for the interface
 """
 
 #variable for navigating through listbox menu
 global status
 global current_artist 
 
-status = 0          #0 = main menu in listbox
+status = 0          #0=main menu in listbox
 current_artist = ""
 
 #variables for keeping track of current song and tracklist
@@ -141,8 +145,8 @@ global song_lbl
 global album_lbl
 global artist_lbl
 
-tracklist = []
-current_track = ""
+tracklist = []          #save playlist (all songs or songs from selected album)
+current_track = ""      #update the currently playing song
 is_playing = False      #change status between play() and stop()
 is_paused = False       #change status between pause() and resume()
 song_lbl = None         #update song label in currently playing
@@ -156,6 +160,7 @@ Functions for the menu bar
 """
 
 def load():
+    """Upload song from your computer and store their id3 information."""
     global filepath
     global artists
     global albums
@@ -177,7 +182,7 @@ def load():
    
 
 def store_id3():
-    #get id3 info and save them
+    """Get id3 information and save them."""
     for item in filepath:
         tag = ID3(item)
         my_track = str(tag["TIT2"])
@@ -213,7 +218,10 @@ def store_id3():
         #store track with respective tracknumber
         tracknumber[my_track] = my_tracknumber
 
+
 def show_lyrics():
+    """Opens new window with lyrics found on Genius Lyrics."""
+    #get access to search the website with personal key
     api_key = "RkAaak3o5ILyWROqIVslYQxV7grjAk6LEEg_9lfP6IqC63OJZRms6vFmaO9O-ZFV"
     genius = lg.Genius(api_key, skip_non_songs=True, excluded_terms=["(Remix)", "(Live)"])
     
@@ -241,10 +249,17 @@ Function to define double click actins in listbox menu
 """
 
 def get_action(event):
-    index = listbox.nearest(event.y)
+    """Identify position in listbox menu and run desired action.
+    Argument:
+    event -- the clicked position in the listbox
+    """
     global status
     global is_playing
 
+    #get index the user clicked on
+    index = listbox.nearest(event.y)
+
+    #check if user was in main menu
     if status == 0:
         if index == 0:
             all_songs(event)
@@ -253,7 +268,9 @@ def get_action(event):
             show_artists(event)
             status = 1
     
+    #check if user was in artist menu/all artists
     elif status == 1:
+        #was "BACK" entry clicked
         if index == 0:
             main_menu(event)
             status -= 1
@@ -261,7 +278,9 @@ def get_action(event):
             show_albums(event)
             status = 2
 
+    #check if user was in album menu/all albums of an artist
     elif status == 2:
+        #was "BACK" entry clicked
         if index == 0:
             show_artists(event)
             status -= 1
@@ -269,7 +288,9 @@ def get_action(event):
             show_tracks(event)
             status = 3
 
+    #check if user was in song menu/all songs of an album
     elif status == 3:
+        #was "BACK" entry clicked
         if index == 0:
             show_albums(event)
             status -= 1
@@ -278,7 +299,9 @@ def get_action(event):
             play_on_click(event)
             pass
     
+    #check if user was in all songs menu/all uploaded songs
     elif status == 4:
+        #was "BACK" entry clicked
         if index == 0:
             main_menu(event)
             status = 0
@@ -294,13 +317,15 @@ Functions for creating the listbox menu
 """
 
 def main_menu(event):
+    """Show the main listbox menu."""
     listbox.delete(0, END)
 
     listbox.insert(0, "All Songs")
     listbox.insert(1, "Artists")
 
+
 def all_songs(event):
-    #delete all listbox items and show all songs
+    """Show all uploaded songs."""
     listbox.delete(0, END)
     global tracklist
     
@@ -318,8 +343,10 @@ def all_songs(event):
     listbox.insert(0, "BACK")
     scrollbar_vertical.config(command = listbox.yview)
     scrollbar_horizontal.config(command = listbox.xview)
-        
+
+
 def show_artists(event):
+    """Show all artists."""
     listbox.delete(0, END)
     
     #get artists
@@ -333,7 +360,12 @@ def show_artists(event):
     scrollbar_vertical.config(command = listbox.yview)
     scrollbar_horizontal.config(command = listbox.xview)
 
+
 def show_albums(event):
+    """Show all uploaded albums from selected artist.
+    Argument:
+    event -- the clicked position in the listbox
+    """
     index = listbox.nearest(event.y)
     global current_artist
 
@@ -357,7 +389,12 @@ def show_albums(event):
     scrollbar_vertical.config(command = listbox.yview)
     scrollbar_horizontal.config(command = listbox.xview)
 
+
 def show_tracks(event):
+    """Show all uploaded tracks from selected album.
+    Argument:
+    event -- the clicked position in the listbox
+    """
     index = listbox.nearest(event.y)
     global current_artist
     global tracklist
@@ -385,7 +422,12 @@ def show_tracks(event):
     scrollbar_vertical.config(command = listbox.yview)
     scrollbar_horizontal.config(command = listbox.xview)
 
+
 def sort_albums(album_names):
+    """Sort albums accoring to their release year.
+    Argument:
+    album_names -- names of the albums
+    """
     current_albums = {}
     for item in album_names:
         current_albums[item] = year.get(item)
@@ -395,13 +437,19 @@ def sort_albums(album_names):
     
     return sorted_albums
 
+
 def sort_tracks(track_names):
+    """Sort tracks according to their tracknumber.
+    Argument:
+    track_names -- names of the songs
+    """
     current_tracks = {}
     for item in track_names:
         current_tracks[item] = tracknumber.get(item)
     
     #sort according to title number
     sorted_tracks = {key: val for key, val in sorted(current_tracks.items(), key = lambda ele: ele[1])}
+    
     return sorted_tracks
 
 
@@ -411,6 +459,10 @@ Functions for the buttons and playing songs per double click
 """
 
 def play_on_click(event):
+    """Plays the song the user clicked on in the listbox menu.
+    Argument:
+    event -- the clicked position in the listbox
+    """
     global current_track
 
     #update current track
@@ -419,10 +471,14 @@ def play_on_click(event):
     
     play()
     
+
 def intermediate_play(event):
+    """To get rid of the automatically created event."""
     play()
 
+
 def play():
+    """Plays a selected song. Pause and unpause playing song."""
     global is_playing
     global is_paused
     global current_track
@@ -446,13 +502,17 @@ def play():
         song_time()
         is_playing = True
 
+
 def stop():
+    """Stops song and reset it to their beginning."""
     global is_playing
     
     mixer.music.stop()
     is_playing = False
 
+
 def previous():
+    """Plays the previous song in the playlist."""
     global current_track
     
     if current_track in tracklist:
@@ -467,7 +527,9 @@ def previous():
     stop()      #to reset the raw time
     play()
 
+
 def next():
+    """Plays the next song in the playlist."""
     global current_track
 
     if current_track in tracklist:
@@ -482,7 +544,12 @@ def next():
     stop()      #to reset the raw time
     play()
 
+
+
+"""Function for updating the bar with the current songs time"""
+
 def song_time():
+    """Display and updates the time the current song is playing."""
     global is_playing
     global current_track
     global song_length
@@ -515,6 +582,7 @@ Function for updating the currently playing frame
 """
 
 def currently_playing():
+    """Display and update the information about the currently playing song."""
     global song_frame
     global current_track
     global current_artist
@@ -530,7 +598,6 @@ def currently_playing():
     song_lbl.place(x=45, y=10)
     
     #current album
-    #my_album = [key for key, val in albums.items() if any(y in [val] for y in current_track)]
     for key in albums:
         list_val = albums[key]
         for val in list_val:
@@ -543,15 +610,13 @@ def currently_playing():
     album_lbl.place(x=45, y=110)
     
     #current artist
-    #my_artist = [key for key, val in artists.items() if any(y in [val] for y in my_album)]
     for key in artists:
         list_val = artists[key]
         for val in list_val:
             if val == my_album:
                 current_artist = key
-                
+       
     if artist_lbl:
         artist_lbl.after(100, artist_lbl.destroy())
     artist_lbl = Label(song_frame, text=current_artist, wraplength=126)
     artist_lbl.place(x=45, y=70)
-
